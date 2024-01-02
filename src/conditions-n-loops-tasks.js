@@ -245,62 +245,89 @@ function getSpiralMatrix(size) {
   return matrix;
 }
 
-/**
- * Rotates a matrix by 90 degrees clockwise in place.
- * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
- * Usage of String and Array class methods is not allowed in this task.
- *
- * @param {number[][]} matrix - The matrix to rotate.
- * @return {number[][]} The rotated matrix.
- *
- * @example:
- *  [                 [
- *    [1, 2, 3],        [7, 4, 1],
- *    [4, 5, 6],  =>    [8, 5, 2],
- *    [7, 8, 9]         [9, 6, 3]
- *  ]                 ]
- */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(test) {
+  const matrix = test;
+
+  const n = matrix.length;
+  for (let i = 0; i < n; i += 1) {
+    for (let j = i; j < n; j += 1) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < n / 2; j += 1) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[i][n - j - 1];
+      matrix[i][n - j - 1] = temp;
+    }
+  }
+
+  return matrix;
 }
 
-/**
- * Sorts an array of numbers in ascending order in place.
- * Employ any sorting algorithm of your choice.
- * Take into account that the array can be very large. Consider how you can optimize your solution.
- * In this task, the use of methods of the Array and String classes is not allowed.
- *
- * @param {number[]} arr - The array to sort.
- * @return {number[]} The sorted array.
- *
- * @example:
- *  [2, 9, 5]       => [2, 5, 9]
- *  [2, 9, 5, 9]    => [2, 5, 9, 9]
- *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
- */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const myArray = arr;
+  function makeHeap(size, rootIndex) {
+    let biggest = rootIndex;
+    const leftKid = 2 * rootIndex + 1;
+    const rightKid = 2 * rootIndex + 2;
+
+    if (leftKid < size && myArray[rootIndex] < myArray[leftKid]) {
+      biggest = leftKid;
+    }
+
+    if (rightKid < size && myArray[biggest] < myArray[rightKid]) {
+      biggest = rightKid;
+    }
+
+    if (biggest !== rootIndex) {
+      const temp = myArray[rootIndex];
+      myArray[rootIndex] = myArray[biggest];
+      myArray[biggest] = temp;
+
+      makeHeap(size, biggest);
+    }
+  }
+
+  const totalElements = myArray.length;
+
+  for (let i = Math.floor(totalElements / 2) - 1; i >= 0; i -= 1) {
+    makeHeap(totalElements, i);
+  }
+
+  for (let i = totalElements - 1; i > 0; i -= 1) {
+    const temp = myArray[0];
+    myArray[0] = myArray[i];
+    myArray[i] = temp;
+
+    makeHeap(i, 0);
+  }
+
+  return myArray;
 }
 
-/**
- * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
- * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
- * Usage of Array class methods is not allowed in this task.
- *
- * @param {string} str - The string to shuffle.
- * @param {number} iterations - The number of iterations to perform the shuffle.
- * @return {string} The shuffled string.
- *
- * @example:
- *  '012345', 1 => '024135'
- *  'qwerty', 1 => 'qetwry'
- *  '012345', 2 => '024135' => '043215'
- *  'qwerty', 2 => 'qetwry' => 'qtrewy'
- *  '012345', 3 => '024135' => '043215' => '031425'
- *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
- */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(string, iterations) {
+  const str = string;
+  const len = str.length;
+  const newPositions = new Array(len);
+
+  for (let i = 0; i < len; i += 1) {
+    let pos = i;
+    for (let iter = 0; iter < iterations; iter += 1) {
+      pos = pos % 2 === 0 ? pos / 2 : (len + pos - 1) / 2;
+    }
+    newPositions[pos] = i;
+  }
+
+  let result = '';
+  for (let i = 0; i < len; i += 1) {
+    result += str[newPositions[i]];
+  }
+
+  return result;
 }
 
 /**
