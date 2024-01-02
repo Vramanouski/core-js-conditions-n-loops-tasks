@@ -330,25 +330,64 @@ function shuffleChar(string, iterations) {
   return result;
 }
 
-/**
- * Returns the nearest largest integer consisting of the digits of the given positive integer.
- * If there is no such number, it returns the original number.
- * Usage of String class methods is not allowed in this task.
- *
- * @example:
- * 12345    => 12354
- * 123450   => 123504
- * 12344    => 12434
- * 123440   => 124034
- * 1203450  => 1203504
- * 90822    => 92028
- * 321321   => 322113
- *
- * @param {number} number The source number
- * @returns {number} The nearest larger number, or original number if none exists.
- */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(input) {
+  const number = input;
+  const numArray = [];
+  let tempNumber = number;
+  let digits = 0;
+
+  while (tempNumber > 0) {
+    numArray.unshift(tempNumber % 10);
+    tempNumber = Math.floor(tempNumber / 10);
+    digits += 1;
+  }
+
+  let i;
+  for (i = digits - 2; i >= 0; i -= 1) {
+    if (numArray[i] < numArray[i + 1]) {
+      break;
+    }
+  }
+
+  if (i < 0) return number;
+
+  let smallestIndex = i + 1;
+  for (let j = i + 1; j < digits; j += 1) {
+    if (numArray[j] > numArray[i] && numArray[j] < numArray[smallestIndex]) {
+      smallestIndex = j;
+    }
+  }
+
+  const temp = numArray[i];
+  numArray[i] = numArray[smallestIndex];
+  numArray[smallestIndex] = temp;
+
+  const rightPart = [];
+  for (let j = i + 1; j < numArray.length; j += 1) {
+    rightPart.push(numArray[j]);
+  }
+  numArray.length = i + 1;
+
+  for (let j = 0; j < rightPart.length; j += 1) {
+    for (let k = j + 1; k < rightPart.length; k += 1) {
+      if (rightPart[j] > rightPart[k]) {
+        const tempr = rightPart[j];
+        rightPart[j] = rightPart[k];
+        rightPart[k] = tempr;
+      }
+    }
+  }
+
+  for (let j = 0; j < rightPart.length; j += 1) {
+    numArray.push(rightPart[j]);
+  }
+
+  let result = 0;
+  for (let j = 0; j < numArray.length; j += 1) {
+    result = result * 10 + numArray[j];
+  }
+
+  return result;
 }
 
 module.exports = {
