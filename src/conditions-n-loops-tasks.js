@@ -32,63 +32,97 @@ function canQueenCaptureKing(queen, king) {
   return false;
 }
 
-/**
- * Determines whether a triangle is isosceles based on its side lengths.
- * In this task, the use of methods of the String and Array classes is not allowed.
- *
- * @param {number} a - The length of the first side.
- * @param {number} b - The length of the second side.
- * @param {number} c - The length of the third side.
- * @return {boolean} True if the triangle is isosceles, false otherwise.
- *
- * @example:
- *  1, 2, 3   => false
- *  3, 1, 2   => false
- *  2, 3, 2   => true
- *  3, 2, 2   => true
- *  2, 2, 3   => true
- *  2, 2, 5   => false
- *  3, 0, 3   => false
- */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b < c || b + c < a || c + a < b || a <= 0 || b <= 0 || c <= 0) {
+    return false;
+  }
+  return a === b || a === c || b === c;
 }
 
-/**
- * Converts a number to Roman numerals. The number will be between 1 and 39.
- * In this task, the use of methods of the String and Array classes is not allowed.
- *
- * @param {number} num - The number to convert.
- * @return {string} The Roman numeral representation of the number.
- *
- * @example:
- *  1   => I
- *  2   => II
- *  5   => V
- *  10  => X
- *  26  => XXVI
- */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const beforeNine = [
+    '',
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+    'IX',
+  ];
+  const afterNine = ['', 'X', 'XX', 'XXX'];
+
+  const secNum = num % 10;
+  const firstNum = (num - secNum) / 10;
+
+  return afterNine[firstNum] + beforeNine[secNum];
 }
 
-/**
- * Converts a number to a string, replacing digits with words.
- * In this task, the use of methods of the String and Array classes is not allowed.
- *
- * @param {string} numberStr - The number as a string.
- * @return {string} The number with digits replaced by words.
- *
- * @example:
- *  '1'       => 'one'
- *  '10'      => 'one zero'
- *  '-10'     => 'minus one zero'
- *  '10.5'    => 'one zero point five'
- *  '10,5'    => 'one zero point five'
- *  '1950.2'  => 'one nine five zero point two'
- */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let answer = '';
+  let word = '';
+
+  for (let i = 0; i <= numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '0':
+        word = 'zero';
+        break;
+      case '1':
+        word = 'one';
+        break;
+      case '2':
+        word = 'two';
+        break;
+
+      case '3':
+        word = 'three';
+        break;
+
+      case '4':
+        word = 'four';
+        break;
+
+      case '5':
+        word = 'five';
+        break;
+
+      case '6':
+        word = 'six';
+        break;
+
+      case '7':
+        word = 'seven';
+        break;
+
+      case '8':
+        word = 'eight';
+        break;
+
+      case '9':
+        word = 'nine';
+        break;
+
+      case '.':
+        word = 'point';
+        break;
+      case ',':
+        word = 'point';
+        break;
+
+      case '-':
+        word = 'minus';
+        break;
+
+      default:
+        word = '';
+    }
+
+    answer += i < numberStr.length - 1 ? `${word} ` : word;
+  }
+
+  return answer;
 }
 
 /**
