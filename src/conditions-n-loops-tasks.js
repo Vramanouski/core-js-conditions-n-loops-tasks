@@ -1,67 +1,35 @@
-/* *******************************************************************************************
- *                                                                                           *
- * Please read the following tutorial before implementing tasks:                             *
- * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Looping_code    *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration         *
- * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals    *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else    *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch       *
- *                                                                                           *
- ******************************************************************************************* */
-
-/**
- * Determines whether a given number is positive. Zero is considered positive.
- * This function does not use Number or Math class methods.
- *
- * @param {number} number - The number to check.
- * @return {boolean} True if the number is positive or zero, false otherwise.
- *
- * @example:
- *  10 => true
- *  0  => true
- *  -5 => false
- */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
-/**
- * Returns the maximum of three numbers without using Array and Math classes methods.
- *
- * @param {number} a - The first number.
- * @param {number} b - The second number.
- * @param {number} c - The third number.
- * @return {number} The maximum of the three numbers.
- *
- * @example:
- *  1, 2, 3       => 3
- *  -5, 0, 5      => 5
- *  -0.1, 0, 0.2  => 0.2
- */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let max = a;
+  if (b > max) {
+    max = b;
+  }
+  if (c > max) {
+    max = c;
+  }
+  return max;
 }
 
-/**
- * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
- * See more details at https://en.wikipedia.org/wiki/Queen_(chess)
- *
- * @typedef {{
- *  x: number,
- *  y: number
- * }} Position
- * @param {Object} queen - The position of the queen.
- * @param {Object} king - The position of the king.
- * @return {boolean} True if the queen can capture the king, false otherwise.
- *
- * @example
- * {x: 1, y: 1}, {x: 5, y: 5} => true
- * {x: 2, y: 1}, {x: 2, y: 8} => true
- * {x: 1, y: 1}, {x: 2, y: 8} => false
- * {x: 1, y: 1}, {x: 2, y: 8} => false
- */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x) {
+    return true;
+  }
+
+  if (queen.y === king.y) {
+    return true;
+  }
+
+  const xDiff = queen.x - king.x > 0 ? queen.x - king.x : king.x - queen.x;
+  const yDiff = queen.y - king.y > 0 ? queen.y - king.y : king.y - queen.y;
+
+  if (xDiff === yDiff) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
